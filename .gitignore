@@ -1,0 +1,6 @@
+.dbeaver/
+bin/
+.settings/
+tierra_media.db
+tierra_media.sqbpro
+/target/
