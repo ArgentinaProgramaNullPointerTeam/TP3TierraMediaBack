@@ -36,5 +36,9 @@ public abstract class Producto {
 
 	// Retorna el id
 	public abstract int getId();
+	
+	public abstract boolean isStatus();
+	
+	public abstract void setStatus(boolean status);
 
 }

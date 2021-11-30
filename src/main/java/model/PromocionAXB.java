@@ -8,8 +8,8 @@ public class PromocionAXB extends Promocion {
 	private int costoDeVisita;
 
 	public PromocionAXB(int id, String nombre, int cantAtracciones, List<Atraccion> atracciones, String tipoPromocion,
-			int descuento) {
-		super(id, nombre, cantAtracciones, atracciones, tipoPromocion);
+			int descuento, int status) {
+		super(id, nombre, cantAtracciones, atracciones, tipoPromocion, status);
 		this.idAtraccionGratuita = descuento;
 		this.ListaAtracciones = atracciones;
 	}

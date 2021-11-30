@@ -15,7 +15,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public HashMap<Integer, Usuario> findAll() {
 		try {
-			String sql = "SELECT * FROM 'usuario'";
+			String sql = "SELECT u.id_usuario, u.nombre, u.dinero_disponible, u.tiempo_disponible, tipo.nombre AS 'tipo_atraccion', u.is_admin, u.status "
+					+ "FROM 'usuario' AS u INNER JOIN 'tipo_atraccion' AS tipo "
+					+ "ON u.id_tipo_atraccion = tipo.id_tipo_atraccion WHERE u.status = '1' AND tipo.status = '1'";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -44,7 +46,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public int update(Usuario usuario) {
 		int rows = 0;
 		try {
-			String sql = "UPDATE usuario SET dinero_disponible = ?, tiempo_disponible = ? WHERE id_usuario = ?";
+			String sql = "UPDATE usuario SET dinero_disponible = ?, tiempo_disponible = ? WHERE id_usuario = ? AND status = '1'";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 
@@ -62,7 +64,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	private Usuario toUsuario(ResultSet resultados) {
 		try {
 			return new Usuario(resultados.getInt(1), resultados.getString(2), resultados.getString(5),
-					resultados.getInt(3), resultados.getDouble(4));
+					resultados.getInt(3), resultados.getDouble(4), resultados.getInt(6), resultados.getInt(7));
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}

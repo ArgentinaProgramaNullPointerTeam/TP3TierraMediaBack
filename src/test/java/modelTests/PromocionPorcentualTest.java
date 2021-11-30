@@ -23,13 +23,13 @@ public class PromocionPorcentualTest {
 
 	@Before
 	public void setup() {
-		atraccion1 = new Atraccion(1, "Rivendel", 10, 2, 6, "Aventura");
-		atraccion2 = new Atraccion(2, "Hobbiton", 40, 3.5, 8, "Aventura");
+		atraccion1 = new Atraccion(1, "Rivendel", 10, 2, 6, "Aventura", 1);
+		atraccion2 = new Atraccion(2, "Hobbiton", 40, 3.5, 8, "Aventura", 1);
 
 		pack.add(atraccion1);
 		pack.add(atraccion2);
 
-		promo = new PromocionPorcentual(1, "Pack 1", 2, pack, "Porcentual", 0.50);
+		promo = new PromocionPorcentual(1, "Pack 1", 2, pack, "Porcentual", 0.50, 1);
 	}
 
 	@Test
@@ -76,8 +76,8 @@ public class PromocionPorcentualTest {
 
 	@Test
 	public void noEstaIncluidaTest() {
-		Producto atraccionIncluida = new Atraccion(1, "Rivendel", 10, 2, 6, "Aventura");
-		Producto atraccionNoIncluida = new Atraccion(2, "Isengard", 10, 2.5, 23, "Aventura");
+		Producto atraccionIncluida = new Atraccion(1, "Rivendel", 10, 2, 6, "Aventura", 1);
+		Producto atraccionNoIncluida = new Atraccion(2, "Isengard", 10, 2.5, 23, "Aventura", 1);
 
 		assertTrue(promo.esOContiene(atraccionIncluida));
 		assertFalse(promo.esOContiene(atraccionNoIncluida));

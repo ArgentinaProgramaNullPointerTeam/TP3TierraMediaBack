@@ -16,7 +16,10 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 	public HashMap<Integer, Promocion> findAll(HashMap<Integer, Atraccion> atracciones) {
 		try {
-			String sql = "SELECT * FROM 'promocion'";
+			String sql = "SELECT p.id_promocion, p.nombre, p.tipo_promocion, p.descuento_AXB, p.descuento_porcentual, p.descuento_absoluta, tipo.nombre AS 'tipo_atraccion', p.atraccion1, p.atraccion2, p.atraccion3, p.status "
+					+ "FROM promocion p INNER JOIN tipo_atraccion tipo "
+					+ "ON p.id_tipo_atraccion = tipo.id_tipo_atraccion "
+					+ "WHERE p.status = '1' AND tipo.status = '1'";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -56,13 +59,13 @@ public class PromocionDAOImpl implements PromocionDAO {
 			model.Promocion promocion = null;
 			if (resultados.getString(3).equals("Porcentual")) {
 				promocion = new model.PromocionPorcentual(resultados.getInt(1), resultados.getString(2),
-						cantAtracciones, atraccionesEnPromo, resultados.getString(3), resultados.getDouble(5));
+						cantAtracciones, atraccionesEnPromo, resultados.getString(3), resultados.getDouble(5), resultados.getInt(11));
 			} else if (resultados.getString(3).equals("Absoluta")) {
 				promocion = new model.PromocionAbsoluta(resultados.getInt(1), resultados.getString(2), cantAtracciones,
-						atraccionesEnPromo, resultados.getString(3), resultados.getInt(6));
+						atraccionesEnPromo, resultados.getString(3), resultados.getInt(6), resultados.getInt(11));
 			} else if (resultados.getString(3).equals("AXB")) {
 				promocion = new model.PromocionAXB(resultados.getInt(1), resultados.getString(2), cantAtracciones,
-						atraccionesEnPromo, resultados.getString(3), resultados.getInt(4));
+						atraccionesEnPromo, resultados.getString(3), resultados.getInt(4), resultados.getInt(11));
 			}
 			return promocion;
 

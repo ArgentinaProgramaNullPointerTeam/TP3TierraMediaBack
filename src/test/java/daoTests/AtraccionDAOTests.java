@@ -32,9 +32,9 @@ public class AtraccionDAOTests {
 	@Test
 	public void cargarAtraccionesTest() {
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
-		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura");
-		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura");
-		Atraccion atraccion3 = new Atraccion(3, "La Comarca", 3, 1, 150, "Aventura");
+		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
+		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura", 1);
+		Atraccion atraccion3 = new Atraccion(3, "La Comarca", 3, 1, 150, "Aventura", 1);
 
 		HashMap<Integer, Atraccion> atraccionesEsperadas = new HashMap<Integer, Atraccion>();
 		atraccionesEsperadas.put(atraccion1.getId(), atraccion1);
@@ -48,7 +48,7 @@ public class AtraccionDAOTests {
 	@Test
 	public void actualizarCupoTest() {
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
-		Atraccion atraccion = new Atraccion(1, "Moria", 1, 1, 6, "Aventura");
+		Atraccion atraccion = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
 		Atraccion atraccionObtenida = atraccionDAO.findAll().get(1);
 		atraccion.restarCupo();
 		int cupoInicial = atraccion.getCupo();

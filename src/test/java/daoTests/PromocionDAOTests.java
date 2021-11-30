@@ -33,13 +33,13 @@ public class PromocionDAOTests {
 
 	@Test
 	public void cargarPromocionesTest() {
-		Atraccion atraccion1 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura");
-		Atraccion atraccion2 = new Atraccion(3, "La Comarca", 3, 1, 150, "Aventura");
+		Atraccion atraccion1 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura", 1);
+		Atraccion atraccion2 = new Atraccion(3, "La Comarca", 3, 1, 150, "Aventura", 1);
 		ArrayList<Atraccion> atraccionesEsperadas = new ArrayList<Atraccion>();
 		atraccionesEsperadas.add(atraccion1);
 		atraccionesEsperadas.add(atraccion2);
 		Promocion promoEsperada = new PromocionPorcentual(1, "Pack Aventura", 2, atraccionesEsperadas, "Porcentual",
-				0.2);
+				0.2, 1);
 		HashMap<Integer, Promocion> promocionesEsperadas = new HashMap<Integer, Promocion>();
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();

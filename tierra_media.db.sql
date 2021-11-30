@@ -68,6 +68,9 @@ CREATE TABLE IF NOT EXISTS "promocion" (
 	PRIMARY KEY("id_promocion" AUTOINCREMENT),
 	FOREIGN KEY("id_tipo_atraccion") REFERENCES "tipo_atraccion"("id_tipo_atraccion")
 	FOREIGN KEY("descuento_AXB") REFERENCES "atraccion"("id_atraccion")
+	FOREIGN KEY("atraccion1") REFERENCES "atraccion"("id_atraccion")
+	FOREIGN KEY("atraccion2") REFERENCES "atraccion"("id_atraccion")
+	FOREIGN KEY("atraccion3") REFERENCES "atraccion"("id_atraccion")
 );
 
 

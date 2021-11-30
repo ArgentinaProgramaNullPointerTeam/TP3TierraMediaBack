@@ -1,2 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Vivi/eclipse-workspace/TP3TierraMediaBack/src/test/resources/tierra_media_test.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="4078"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainatraccion"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">INSERT INTO promocion(nombre,tipo_promocion, descuento_porcentual, tipo_atraccion,atraccion1, atraccion2) VALUES
- ('Pack Aventura', 'Porcentual', '0.2','Aventura','8','4');</sql><current_tab id="0"/></tab_sql></sqlb_project>
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Vivi/eclipse-workspace/TP3TierraMediaBack/src/test/resources/tierra_media_test.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5245"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:mainatraccion"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE IF NOT EXISTS &quot;tipo_atraccion&quot; (
+	&quot;id_tipo_atraccion&quot;	INTEGER,
+	&quot;nombre&quot;	TEXT NOT NULL CHECK(length(&quot;nombre&quot;) &gt; 2),
+	&quot;status&quot;	INTEGER NOT NULL DEFAULT 1,
+	PRIMARY KEY(&quot;id_tipo_atraccion&quot; AUTOINCREMENT)
+);
+INSERT INTO tipo_atraccion(nombre) VALUES
+('Aventura'),
+('Paisaje'),
+('Degustacion');
+
+CREATE TABLE IF NOT EXISTS &quot;usuario&quot; (
+	&quot;id_usuario&quot;	INTEGER,
+	&quot;nombre&quot;	TEXT NOT NULL CHECK(length(&quot;nombre&quot;) &gt; 2),
+	&quot;dinero_disponible&quot;	INTEGER NOT NULL DEFAULT 0 CHECK(&quot;dinero_disponible&quot; &gt;= 0),
+	&quot;tiempo_disponible&quot;	INTEGER NOT NULL DEFAULT 0 CHECK(&quot;tiempo_disponible&quot; &gt;= 0),
+	&quot;id_tipo_atraccion&quot;	INTEGER NOT NULL,
+	&quot;is_admin&quot; INTEGER NOT NULL DEFAULT 0,
+	&quot;status&quot;	INTEGER NOT NULL DEFAULT 1,
+	FOREIGN KEY(&quot;id_tipo_atraccion&quot;) REFERENCES &quot;tipo_atraccion&quot;(&quot;id_tipo_atraccion&quot;)
+	PRIMARY KEY(&quot;id_usuario&quot; AUTOINCREMENT)
+);
+
+INSERT INTO usuario(nombre, dinero_disponible, tiempo_disponible, id_tipo_atraccion) VALUES
+ ('Eowyn', '10', '8','1');
+
+
+
+CREATE TABLE IF NOT EXISTS &quot;atraccion&quot; (
+	&quot;id_atraccion&quot;	INTEGER NOT NULL UNIQUE,
+	&quot;nombre&quot;	TEXT NOT NULL CHECK(length(&quot;nombre&quot;) &gt;= 3) UNIQUE,
+	&quot;costo_visita&quot;	INTEGER NOT NULL CHECK(&quot;costo_visita&quot; &gt; 0),
+	&quot;cupo&quot;	INTEGER NOT NULL CHECK(&quot;cupo&quot; &gt;= 0),
+	&quot;tiempo_visita&quot;	INTEGER NOT NULL CHECK(&quot;tiempo_visita&quot; &gt; 0),
+	&quot;id_tipo_atraccion&quot;	INTEGER NOT NULL,
+	&quot;status&quot;	INTEGER NOT NULL DEFAULT 1,
+	FOREIGN KEY(&quot;id_tipo_atraccion&quot;) REFERENCES &quot;tipo_atraccion&quot;(&quot;id_tipo_atraccion&quot;)
+	PRIMARY KEY(&quot;id_atraccion&quot; AUTOINCREMENT)
+);
+
+INSERT INTO atraccion(nombre, costo_visita,cupo,tiempo_visita, id_tipo_atraccion) VALUES
+ ('Moria', '1', '6', '1', '1'),
+ ('Minas Tirith', '2', '25', '2.5', '1'),
+ ('La Comarca', '3', '150', '1', '1');
+
+
+CREATE TABLE IF NOT EXISTS &quot;promocion&quot; (
+	&quot;id_promocion&quot;	INTEGER NOT NULL UNIQUE,
+	&quot;nombre&quot;	TEXT NOT NULL CHECK(length(&quot;nombre&quot;) &gt; 3),
+	&quot;tipo_promocion&quot;	TEXT NOT NULL,
+	&quot;descuento_AXB&quot;	INTEGER CHECK(&quot;descuento_AXB&quot; &gt; 0),
+	&quot;descuento_porcentual&quot;	INTEGER CHECK(&quot;descuento_porcentual&quot; &gt; 0),
+	&quot;descuento_absoluta&quot;	INTEGER CHECK(&quot;descuento_absoluta&quot; &gt; 0),
+	&quot;id_tipo_atraccion&quot;	INTEGER NOT NULL,
+	&quot;atraccion1&quot;	INT,
+	&quot;atraccion2&quot;	INT,
+	&quot;atraccion3&quot;	INT,
+	&quot;status&quot;	INTEGER NOT NULL DEFAULT 1,
+	PRIMARY KEY(&quot;id_promocion&quot; AUTOINCREMENT),
+	FOREIGN KEY(&quot;id_tipo_atraccion&quot;) REFERENCES &quot;tipo_atraccion&quot;(&quot;id_tipo_atraccion&quot;)
+	FOREIGN KEY(&quot;descuento_AXB&quot;) REFERENCES &quot;atraccion&quot;(&quot;id_atraccion&quot;)
+	FOREIGN KEY(&quot;atraccion1&quot;) REFERENCES &quot;atraccion&quot;(&quot;id_atraccion&quot;)
+	FOREIGN KEY(&quot;atraccion2&quot;) REFERENCES &quot;atraccion&quot;(&quot;id_atraccion&quot;)
+	FOREIGN KEY(&quot;atraccion3&quot;) REFERENCES &quot;atraccion&quot;(&quot;id_atraccion&quot;)
+);
+
+
+
+
+INSERT INTO promocion(nombre,tipo_promocion, descuento_porcentual, id_tipo_atraccion,atraccion1, atraccion2) VALUES
+ ('Pack Aventura', 'Porcentual', '0.2','1','2','3');
+
+
+
+CREATE TABLE IF NOT EXISTS &quot;itinerario&quot; (
+	&quot;id_itinerario&quot;	INTEGER NOT NULL,
+	&quot;id_usuario&quot;	INTEGER NOT NULL,
+	&quot;id_atraccion&quot;	INTEGER CHECK(&quot;id_atraccion&quot; IS null AND &quot;id_promocion&quot; IS NOT null OR &quot;id_atraccion&quot; IS NOT null AND &quot;id_promocion&quot; IS null),
+	&quot;id_promocion&quot;	INTEGER CHECK(&quot;id_promocion&quot; IS null AND &quot;id_atraccion&quot; IS NOT null OR &quot;id_promocion&quot; IS NOT null AND &quot;id_atraccion&quot; IS null),
+	PRIMARY KEY(&quot;id_itinerario&quot;),
+	FOREIGN KEY(&quot;id_usuario&quot;) REFERENCES &quot;usuario&quot;(&quot;id_usuario&quot;),
+	FOREIGN KEY(&quot;id_atraccion&quot;) REFERENCES &quot;atraccion&quot;(&quot;id_atraccion&quot;),
+	FOREIGN KEY(&quot;id_promocion&quot;) REFERENCES &quot;promocion&quot;(&quot;id_promocion&quot;),
+	UNIQUE(&quot;id_itinerario&quot;,&quot;id_atraccion&quot;),
+	UNIQUE(&quot;id_itinerario&quot;,&quot;id_promocion&quot;)
+);
+
+INSERT INTO itinerario(id_itinerario, id_usuario, id_atraccion) VALUES
+('1', '1', '1');
+</sql><current_tab id="0"/></tab_sql></sqlb_project>

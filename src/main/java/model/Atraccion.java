@@ -15,14 +15,16 @@ public class Atraccion extends Producto {
 	private double tiempoDeVisita;
 	private int cupo;
 	private String tipoAtraccion;
+	private boolean status;
 
-	public Atraccion(int id, String nombre, int costoDeVisita, double tiempoDeVisita, int cupo, String tipoAtraccion) {
+	public Atraccion(int id, String nombre, int costoDeVisita, double tiempoDeVisita, int cupo, String tipoAtraccion, int status) {
 		this.id = id;
 		this.nombre = nombre;
 		this.costoDeVisita = costoDeVisita;
 		this.tiempoDeVisita = tiempoDeVisita;
 		this.cupo = cupo;
 		this.tipoAtraccion = tipoAtraccion;
+		this.status = this.toBoolean(status);
 	}
 
 	@Override
@@ -48,6 +50,16 @@ public class Atraccion extends Producto {
 	@Override
 	public String getTipoAtracciones() {
 		return tipoAtraccion;
+	}
+	
+	@Override
+	public boolean isStatus() {
+		return status;
+	}
+	
+	@Override
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@Override
@@ -97,6 +109,7 @@ public class Atraccion extends Producto {
 		result = prime * result + cupo;
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + (status ? 1231 : 1237);
 		long temp;
 		temp = Double.doubleToLongBits(tiempoDeVisita);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -124,6 +137,8 @@ public class Atraccion extends Producto {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (status != other.status)
+			return false;
 		if (Double.doubleToLongBits(tiempoDeVisita) != Double.doubleToLongBits(other.tiempoDeVisita))
 			return false;
 		if (tipoAtraccion == null) {
@@ -132,6 +147,10 @@ public class Atraccion extends Producto {
 		} else if (!tipoAtraccion.equals(other.tipoAtraccion))
 			return false;
 		return true;
+	}
+
+	private boolean toBoolean(int noBoolean) {
+		return noBoolean == 1;
 	}
 
 }

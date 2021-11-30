@@ -15,14 +15,18 @@ public class Usuario {
 	private int dineroDisponible;
 	private double tiempoDisponible;
 	private Itinerario itinerario;
+	private boolean isAdmin;
+	private boolean status;
 
-	public Usuario(int id, String nombre, String atraccionPreferida, int dineroDisponible, double tiempoDisponible) {
+	public Usuario(int id, String nombre, String atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin, int status) {
 		this.id = id;
 		this.nombre = nombre;
 		this.atraccionPreferida = atraccionPreferida;
 		this.dineroDisponible = dineroDisponible;
 		this.tiempoDisponible = tiempoDisponible;
 		this.itinerario = new Itinerario(id);
+		this.isAdmin = this.toBoolean(isAdmin);
+		this.status = this.toBoolean(status);
 	}
 
 	public int getId() {
@@ -47,6 +51,19 @@ public class Usuario {
 
 	public Itinerario getItinerario() {
 		return this.itinerario;
+	}
+	
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 
 	public void comprar(Producto producto) {
@@ -80,6 +97,7 @@ public class Usuario {
 		this.itinerario = itinerario;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,8 +105,10 @@ public class Usuario {
 		result = prime * result + ((atraccionPreferida == null) ? 0 : atraccionPreferida.hashCode());
 		result = prime * result + dineroDisponible;
 		result = prime * result + id;
+		result = prime * result + (isAdmin ? 1231 : 1237);
 		result = prime * result + ((itinerario == null) ? 0 : itinerario.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + (status ? 1231 : 1237);
 		long temp;
 		temp = Double.doubleToLongBits(tiempoDisponible);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -113,6 +133,8 @@ public class Usuario {
 			return false;
 		if (id != other.id)
 			return false;
+		if (isAdmin != other.isAdmin)
+			return false;
 		if (itinerario == null) {
 			if (other.itinerario != null)
 				return false;
@@ -123,9 +145,14 @@ public class Usuario {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (status != other.status)
+			return false;
 		if (Double.doubleToLongBits(tiempoDisponible) != Double.doubleToLongBits(other.tiempoDisponible))
 			return false;
 		return true;
 	}
 
+	private boolean toBoolean(int noBoolean) {
+		return noBoolean == 1;
+	}
 }
