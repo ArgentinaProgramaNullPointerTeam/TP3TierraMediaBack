@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "tipo_atraccion" (
 	"id_tipo_atraccion"	INTEGER,
 	"nombre"	TEXT NOT NULL CHECK(length("nombre") > 2),
-	"status"	INTEGER NULL DEFAULT 1,
+	"status"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_tipo_atraccion" AUTOINCREMENT)
 );
 INSERT INTO tipo_atraccion(nombre) VALUES
