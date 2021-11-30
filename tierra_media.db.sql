@@ -49,7 +49,8 @@ INSERT INTO atraccion(nombre, costo_visita,cupo,tiempo_visita, id_tipo_atraccion
  ('Abismo de Helm', '5', '15', '2', '2'),
  ('Lothlórien', '35', '30', '1', '3'),
  ('Erebor', '12', '32', '3', '2'), 
- ('Bosque Negro', '3', '12', '4','1'),                                                                                                  ('La Acotada', '5', '3', '1', '1');
+ ('Bosque Negro', '3', '12', '4','1'),
+ ('La Acotada', '5', '3', '1', '1');
 
 
 CREATE TABLE IF NOT EXISTS "promocion" (
