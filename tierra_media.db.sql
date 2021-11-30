@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS "usuario" (
 	"tiempo_disponible"	INTEGER NOT NULL DEFAULT 0 CHECK("tiempo_disponible" >= 0),
 	"id_tipo_atraccion"	INTEGER NOT NULL,
 	"is_admin" INTEGER NOT NULL DEFAULT 0,
-	"status"	INTEGER NULL DEFAULT 1,
+	"status"	INTEGER NOT NULL DEFAULT 1,
 	FOREIGN KEY("id_tipo_atraccion") REFERENCES "tipo_atraccion"("id_tipo_atraccion")
 	PRIMARY KEY("id_usuario" AUTOINCREMENT)
 );
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS "atraccion" (
 	"cupo"	INTEGER NOT NULL CHECK("cupo" >= 0),
 	"tiempo_visita"	INTEGER NOT NULL CHECK("tiempo_visita" > 0),
 	"id_tipo_atraccion"	INTEGER NOT NULL,
-	"status"	INTEGER NULL DEFAULT 1,
+	"status"	INTEGER NOT NULL DEFAULT 1,
 	FOREIGN KEY("id_tipo_atraccion") REFERENCES "tipo_atraccion"("id_tipo_atraccion")
 	PRIMARY KEY("id_atraccion" AUTOINCREMENT)
 );
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS "promocion" (
 	"atraccion1"	INT,
 	"atraccion2"	INT,
 	"atraccion3"	INT,
-	"status"	INTEGER NULL DEFAULT 1,
+	"status"	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY("id_promocion" AUTOINCREMENT),
 	FOREIGN KEY("id_tipo_atraccion") REFERENCES "tipo_atraccion"("id_tipo_atraccion")
 	FOREIGN KEY("descuento_AXB") REFERENCES "atraccion"("id_atraccion")
