@@ -12,6 +12,7 @@ INSERT INTO tipo_atraccion(nombre) VALUES
 CREATE TABLE IF NOT EXISTS "usuario" (
 	"id_usuario"	INTEGER,
 	"nombre"	TEXT NOT NULL CHECK(length("nombre") > 2),
+	"password"	TEXT NOT NULL,
 	"dinero_disponible"	INTEGER NOT NULL DEFAULT 0 CHECK("dinero_disponible" >= 0),
 	"tiempo_disponible"	INTEGER NOT NULL DEFAULT 0 CHECK("tiempo_disponible" >= 0),
 	"id_tipo_atraccion"	INTEGER NOT NULL,
@@ -21,12 +22,12 @@ CREATE TABLE IF NOT EXISTS "usuario" (
 	PRIMARY KEY("id_usuario" AUTOINCREMENT)
 );
 
-INSERT INTO usuario(nombre, dinero_disponible, tiempo_disponible, id_tipo_atraccion) VALUES
- ('Eowyn', '10', '8','1'),
- ('Gandalf', '100', '5', '2'),
- ('Sam', '36', '8','3'), 
- ('Galandriel', '5', '6','2'),
- ('Millonario', '1000', '1000', '1');
+INSERT INTO usuario(nombre, password, dinero_disponible, tiempo_disponible, id_tipo_atraccion) VALUES
+ ('Eowyn', 'pass', '10', '8','1'),
+ ('Gandalf', 'pass', '100', '5', '2'),
+ ('Sam', 'pass', '36', '8','3'), 
+ ('Galandriel', 'pass','5', '6','2'),
+ ('Millonario', 'pass', '1000', '1000', '1');
 
 
 CREATE TABLE IF NOT EXISTS "atraccion" (
