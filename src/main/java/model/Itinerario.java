@@ -60,6 +60,14 @@ public class Itinerario {
 		return duracionItinerario;
 	}
 
+	public void setCostoItinerario(int costoItinerario) {
+		this.costoItinerario = costoItinerario;
+	}
+
+	public void setDuracionItinerario(double duracionItinerario) {
+		this.duracionItinerario = duracionItinerario;
+	}
+
 	public void agregarAItinerario(Producto producto) {
 		this.listaCompra.add(producto);
 		this.costoItinerario += producto.getCostoDeVisita();

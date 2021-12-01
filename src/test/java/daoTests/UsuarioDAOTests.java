@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dao.DAOFactory;
+import dao.ItinerarioDAO;
 import dao.UsuarioDAO;
 import jdbc.ConnectionProvider;
 import model.Atraccion;
@@ -46,35 +47,39 @@ public class UsuarioDAOTests {
 		Itinerario itinerarioEsperado = new Itinerario(1, usuarioEsperado.getId(), compra);
 		usuarioEsperado.setItinerario(itinerarioEsperado);
 		HashMap<Integer, Usuario> usuariosEsperados = new HashMap<Integer, Usuario>();
-
-		HashMap<Integer, Usuario> usuariosObtenidos = usuarioDAO.findAll();
 		usuariosEsperados.put(usuarioEsperado.getId(), usuarioEsperado);
-
+		
+		HashMap<Integer, Usuario> usuariosObtenidos = usuarioDAO.findAll();
+		
 		assertEquals(usuariosEsperados, usuariosObtenidos);
 	}
 
 	@Test
 	public void actualizarUsuarioTest() {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
-
+		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
 		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
+		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura", 1);
 		ArrayList<Producto> compras = new ArrayList<Producto>();
 		compras.add(atraccion1);
+		compras.add(atraccion2);
 
-		Usuario usuarioEsperado = new Usuario(1, "Eowyn", "Aventura", 9, 7, 0, 1);
+		Usuario usuarioEsperado = new Usuario(1, "Eowyn", "Aventura", 8, 5.5, 0, 1);
 
 		Itinerario itinerario = new Itinerario(1, usuarioEsperado.getId(), compras);
 		usuarioEsperado.setItinerario(itinerario);
+		itinerario.setCostoItinerario(2);
+		itinerario.setDuracionItinerario(2.5);
 
 		HashMap<Integer, Usuario> usuariosEsperados = new HashMap<Integer, Usuario>();
 		usuariosEsperados.put(usuarioEsperado.getId(), usuarioEsperado);
 
 		HashMap<Integer, Usuario> usuariosObtenidos = usuarioDAO.findAll();
 		Usuario usuarioObtenido = usuariosObtenidos.get(1);
-		usuarioObtenido.comprar(atraccion1);
-		usuarioDAO.changeFields(usuarioObtenido);
-		usuariosObtenidos = usuarioDAO.findAll();
 
+		usuarioObtenido.comprar(atraccion2);
+		usuarioDAO.changeFields(usuarioObtenido);
+		itinerarioDAO.insert(usuarioObtenido.getItinerario());
 		assertEquals(usuariosEsperados, usuariosObtenidos);
 
 	}

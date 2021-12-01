@@ -68,11 +68,15 @@ public class ItinerarioDAOTests {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 
 		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
-
+		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura", 1);
+		
 		ArrayList<Producto> sugerenciasEsperadas = new ArrayList<Producto>();
 		sugerenciasEsperadas.add(atraccion1);
+		sugerenciasEsperadas.add(atraccion2);
 
 		Itinerario itinerarioEsperado = new Itinerario(1, 1, sugerenciasEsperadas);
+		itinerarioEsperado.setCostoItinerario(2);
+		itinerarioEsperado.setDuracionItinerario(2.5);
 
 		HashMap<Integer, Usuario> usuariosObtenidos = usuarioDAO.findAll();
 		HashMap<Integer, Atraccion> atraccionesObtenidas = atraccionDAO.findAll();
@@ -83,11 +87,10 @@ public class ItinerarioDAOTests {
 
 		Usuario usuarioObtenido = usuariosObtenidos.get(1);
 		usuarioObtenido.setItinerario(itinerarioObtenido);
-		usuarioObtenido.comprar(atraccion1);
+		usuarioObtenido.comprar(atraccion2);
 
 		usuarioDAO.changeFields(usuarioObtenido);
-		itinerarioDAO.update(itinerarioObtenido);
-		itinerariosObtenidos = itinerarioDAO.findById(1, atraccionesObtenidas, promocionesObtenidas);
+		itinerarioDAO.insert(itinerarioObtenido);
 		itinerarioObtenido = itinerariosObtenidos.get(1);
 
 		assertEquals(itinerarioEsperado, itinerarioObtenido);
