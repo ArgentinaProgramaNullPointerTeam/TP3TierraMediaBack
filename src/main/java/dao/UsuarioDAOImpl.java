@@ -43,17 +43,37 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	public int update(Usuario usuario) {
+	public int changeFields(Usuario usuario) {
 		int rows = 0;
 		try {
 			String sql = "UPDATE usuario SET dinero_disponible = ?, tiempo_disponible = ? WHERE id_usuario = ? AND status = '1'";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 
-			statement.setInt(1, usuario.getDineroDisponible());
+			statement.setInt(1, usuario.getId());
 			statement.setDouble(2, usuario.getTiempoDisponible());
 			statement.setInt(3, usuario.getId());
 
+			rows = statement.executeUpdate();
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+		return rows;
+	}
+	
+	public int update(Usuario t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int delete(Usuario usuario) {
+		int rows = 0;
+		try {
+			String sql = "UPDATE usuario SET status = '0' WHERE id_usuario = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, usuario.getId());
 			rows = statement.executeUpdate();
 		} catch (Exception e) {
 			throw new MissingDataException(e);
@@ -69,4 +89,5 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
+
 }

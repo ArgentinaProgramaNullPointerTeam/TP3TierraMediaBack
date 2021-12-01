@@ -72,7 +72,7 @@ public class UsuarioDAOTests {
 		HashMap<Integer, Usuario> usuariosObtenidos = usuarioDAO.findAll();
 		Usuario usuarioObtenido = usuariosObtenidos.get(1);
 		usuarioObtenido.comprar(atraccion1);
-		usuarioDAO.update(usuarioObtenido);
+		usuarioDAO.changeFields(usuarioObtenido);
 		usuariosObtenidos = usuarioDAO.findAll();
 
 		assertEquals(usuariosEsperados, usuariosObtenidos);

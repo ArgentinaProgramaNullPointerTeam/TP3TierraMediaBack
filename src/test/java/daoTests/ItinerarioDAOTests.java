@@ -85,7 +85,7 @@ public class ItinerarioDAOTests {
 		usuarioObtenido.setItinerario(itinerarioObtenido);
 		usuarioObtenido.comprar(atraccion1);
 
-		usuarioDAO.update(usuarioObtenido);
+		usuarioDAO.changeFields(usuarioObtenido);
 		itinerarioDAO.update(itinerarioObtenido);
 		itinerariosObtenidos = itinerarioDAO.findById(1, atraccionesObtenidas, promocionesObtenidas);
 		itinerarioObtenido = itinerariosObtenidos.get(1);

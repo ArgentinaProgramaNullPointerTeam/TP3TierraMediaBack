@@ -40,6 +40,20 @@ public class PromocionDAOImpl implements PromocionDAO {
 		return rows;
 	}
 
+	public int delete(Promocion promocion) {
+		int rows = 0;
+		try {
+			String sql = "UPDATE promocion SET status = '0' WHERE id_promocion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, promocion.getId());
+			rows = statement.executeUpdate();
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+		return rows;
+	}
 	private Promocion toPromocion(ResultSet resultados, HashMap<Integer, Atraccion> atracciones) {
 		try {
 			List<Atraccion> atraccionesEnPromo = new LinkedList<Atraccion>();

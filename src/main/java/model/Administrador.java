@@ -72,7 +72,7 @@ public class Administrador {
 		AtraccionDAO atraccioDAO = DAOFactory.getAtraccionDAO();
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
-		usuarioDAO.update(usuario);
+		usuarioDAO.changeFields(usuario); //se modifica las monedas y el tiempo
 		itinerarioDAO.insert(usuario.getItinerario());
 		// el update de atraccion se hace de forma individual
 		// por eso no se usa una lista sino que se recorre la lista antes y se envia la
@@ -82,10 +82,10 @@ public class Administrador {
 			Promocion miPromo = (Promocion) producto;
 			atracciones.addAll(miPromo.getAtracciones());
 			for (Atraccion atraccion : atracciones) {
-				atraccioDAO.update(atraccion);
+				atraccioDAO.changeFields(atraccion); //se modifica el cupo
 			}
 		} else {
-			atraccioDAO.update((Atraccion) producto);
+			atraccioDAO.changeFields((Atraccion) producto); //se modifica el cupo
 		}
 	}
 }

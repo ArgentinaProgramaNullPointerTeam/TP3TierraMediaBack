@@ -6,4 +6,5 @@ import model.Usuario;
 
 public interface UsuarioDAO extends GenericDAO<Usuario> {
 	public HashMap<Integer, Usuario> findAll();
+	public int changeFields(Usuario usuario);
 }

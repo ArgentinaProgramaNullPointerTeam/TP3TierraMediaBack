@@ -52,7 +52,7 @@ public class AtraccionDAOTests {
 		Atraccion atraccionObtenida = atraccionDAO.findAll().get(1);
 		atraccion.restarCupo();
 		int cupoInicial = atraccion.getCupo();
-		atraccionDAO.update(atraccion);
+		atraccionDAO.changeFields(atraccion);
 		int cupoModificado = atraccionObtenida.getCupo();
 
 		assertNotEquals(cupoInicial, cupoModificado);

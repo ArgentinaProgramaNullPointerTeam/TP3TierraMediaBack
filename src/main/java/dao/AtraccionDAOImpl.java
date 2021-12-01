@@ -30,7 +30,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
-	public int update(Atraccion atraccion) {
+	public int changeFields(Atraccion atraccion) {
 		int rows = 0;
 		try {
 			String sql = "UPDATE atraccion SET cupo = cupo -1 WHERE id_atraccion = ? AND status = '1'";
@@ -46,6 +46,22 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		return rows;
 	}
 
+	public int delete(Atraccion atraccion) {
+		int rows = 0;
+		try {
+			String sql = "UPDATE atraccion SET status = '0' WHERE id_atraccion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+
+			statement.setInt(1, atraccion.getId());
+			rows = statement.executeUpdate();
+
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+		return rows;
+	}
+	
 	private Atraccion toAtraccion(ResultSet resultados) {
 		try {
 			return new Atraccion(resultados.getInt(1), resultados.getString(2), resultados.getInt(3),
@@ -54,4 +70,10 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			throw new MissingDataException(e);
 		}
 	}
+
+	public int update(Atraccion t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
