@@ -11,14 +11,15 @@ package model;
 public class Usuario {
 	private int id;
 	private String nombre;
-	private String atraccionPreferida;
+	private String password;
+	private int atraccionPreferida;
 	private int dineroDisponible;
 	private double tiempoDisponible;
 	private Itinerario itinerario;
 	private boolean isAdmin;
-	private boolean status;
+	private boolean status = true;
 
-	public Usuario(int id, String nombre, String atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin, int status) {
+	public Usuario(int id, String nombre, int atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin, int status) {
 		this.id = id;
 		this.nombre = nombre;
 		this.atraccionPreferida = atraccionPreferida;
@@ -28,7 +29,11 @@ public class Usuario {
 		this.isAdmin = this.toBoolean(isAdmin);
 		this.status = this.toBoolean(status);
 	}
-
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
 	public int getId() {
 		return this.id;
 	}
@@ -37,7 +42,7 @@ public class Usuario {
 		return this.nombre;
 	}
 
-	public String getAtraccionPreferida() {
+	public int getAtraccionPreferida() {
 		return atraccionPreferida;
 	}
 
@@ -97,17 +102,17 @@ public class Usuario {
 		this.itinerario = itinerario;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((atraccionPreferida == null) ? 0 : atraccionPreferida.hashCode());
+		result = prime * result + atraccionPreferida;
 		result = prime * result + dineroDisponible;
 		result = prime * result + id;
 		result = prime * result + (isAdmin ? 1231 : 1237);
 		result = prime * result + ((itinerario == null) ? 0 : itinerario.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
 		long temp;
 		temp = Double.doubleToLongBits(tiempoDisponible);
@@ -124,10 +129,7 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (atraccionPreferida == null) {
-			if (other.atraccionPreferida != null)
-				return false;
-		} else if (!atraccionPreferida.equals(other.atraccionPreferida))
+		if (atraccionPreferida != other.atraccionPreferida)
 			return false;
 		if (dineroDisponible != other.dineroDisponible)
 			return false;
@@ -144,6 +146,11 @@ public class Usuario {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		if (status != other.status)
 			return false;

@@ -14,10 +14,10 @@ public class Atraccion extends Producto {
 	private int costoDeVisita;
 	private double tiempoDeVisita;
 	private int cupo;
-	private String tipoAtraccion;
+	private int tipoAtraccion;
 	private boolean status;
 
-	public Atraccion(int id, String nombre, int costoDeVisita, double tiempoDeVisita, int cupo, String tipoAtraccion, int status) {
+	public Atraccion(int id, String nombre, int costoDeVisita, double tiempoDeVisita, int cupo, int tipoAtraccion, int status) {
 		this.id = id;
 		this.nombre = nombre;
 		this.costoDeVisita = costoDeVisita;
@@ -48,7 +48,7 @@ public class Atraccion extends Producto {
 	}
 
 	@Override
-	public String getTipoAtracciones() {
+	public int getTipoAtracciones() {
 		return tipoAtraccion;
 	}
 	
@@ -113,7 +113,7 @@ public class Atraccion extends Producto {
 		long temp;
 		temp = Double.doubleToLongBits(tiempoDeVisita);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((tipoAtraccion == null) ? 0 : tipoAtraccion.hashCode());
+		result = prime * result + tipoAtraccion;
 		return result;
 	}
 
@@ -141,10 +141,7 @@ public class Atraccion extends Producto {
 			return false;
 		if (Double.doubleToLongBits(tiempoDeVisita) != Double.doubleToLongBits(other.tiempoDeVisita))
 			return false;
-		if (tipoAtraccion == null) {
-			if (other.tipoAtraccion != null)
-				return false;
-		} else if (!tipoAtraccion.equals(other.tipoAtraccion))
+		if (tipoAtraccion != other.tipoAtraccion)
 			return false;
 		return true;
 	}

@@ -8,12 +8,14 @@ public abstract class Promocion extends Producto {
 	private int id;
 	private List<Atraccion> atracciones;
 	private String tipoDePromocion;
+	private int tipoAtraccion;
 	private double tiempoDeVisita;
 	private boolean status;
 
-	public Promocion(int id, String nombre, int cantAtracciones, List<Atraccion> atracciones, String tipoPromocion, int status) {
-		this.nombre = nombre;
+	public Promocion(int id, String nombre, int tipoAtraccion, int cantAtracciones, List<Atraccion> atracciones, String tipoPromocion, int status) {
 		this.id = id;
+		this.nombre = nombre;
+		this.tipoAtraccion = tipoAtraccion;
 		this.tipoDePromocion = tipoPromocion;
 		this.cantAtracciones = cantAtracciones;
 		this.atracciones = atracciones;
@@ -98,8 +100,8 @@ public abstract class Promocion extends Producto {
 	}
 
 	@Override
-	public String getTipoAtracciones() {
-		return this.atracciones.get(0).getTipoAtracciones();
+	public int getTipoAtracciones() {
+		return this.tipoAtraccion;
 	}
 
 	@Override

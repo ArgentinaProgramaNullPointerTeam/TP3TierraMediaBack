@@ -10,8 +10,8 @@ public abstract class Producto {
 	// Devuelve el costo de la visita
 	public abstract int getCostoDeVisita();
 
-	// Devuelve el tipo de atraccion
-	public abstract String getTipoAtracciones();
+	// Devuelve el id del tipo de atraccion
+	public abstract int getTipoAtracciones();
 
 	// Devuelve el tiempo de la visita
 	public abstract double getTiempoDeVisita();
