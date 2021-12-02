@@ -69,6 +69,8 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			statement.setInt(3, atraccion.getCupo());
 			statement.setDouble(4, atraccion.getTiempoDeVisita());
 			statement.setInt(5, atraccion.getTipoAtracciones());
+			statement.setInt(6, atraccion.getId());
+			
 			int rows = statement.executeUpdate();
 			return rows;
 
