@@ -28,27 +28,27 @@ public class ComparadorDeProductosTest {
 
 	@Before
 	public void setup() {
-		u1 = new Usuario(1, "pepito", "Aventura", 100, 100, 0, 1);
-		a1 = new Atraccion(1, "a1", 10, 3, 20, "Aventura", 1);
-		a2 = new Atraccion(2, "a2", 4, 2.5, 20, "Aventura", 1);
-		a3 = new Atraccion(3, "a3", 10, 5, 20, "Aventura", 1);
-		a4 = new Atraccion(4, "a4", 8, 4, 20, "Degustacion", 1);
+		u1 = new Usuario(1, "pepito", 1, 100, 100, 0, 1);
+		a1 = new Atraccion(1, "a1", 10, 3, 20, 1, 1);
+		a2 = new Atraccion(2, "a2", 4, 2.5, 20, 1, 1);
+		a3 = new Atraccion(3, "a3", 10, 5, 20, 1, 1);
+		a4 = new Atraccion(4, "a4", 8, 4, 20, 1, 1);
 
 		List<Atraccion> packUno = new ArrayList<Atraccion>();
 		packUno.add(a1);
 		packUno.add(a2);
-		p1 = new PromocionAbsoluta(1, "Pack uno", 2, packUno, "Absoluta", 10, 1);
+		p1 = new PromocionAbsoluta(1, "Pack uno", 1, 2, packUno, "Absoluta", 10, 1);
 
 		List<Atraccion> packDos = new ArrayList<Atraccion>();
 		packDos.add(a1);
 		packDos.add(a3);
-		p2 = new PromocionPorcentual(2, "Pack dos", 2, packDos, "Porcentual", 0.3, 1);
+		p2 = new PromocionPorcentual(2, "Pack dos", 1, 2, packDos, "Porcentual", 0.3, 1);
 
 		List<Atraccion> packTres = new ArrayList<Atraccion>();
 		packTres.add(a1);
 		packTres.add(a3);
 		packTres.add(a2);
-		p3 = new PromocionAXB(3, "Pack tres", 3, packTres, "AXB", 3, 1);
+		p3 = new PromocionAXB(3, "Pack tres", 1, 3, packTres, "AXB", 3, 1);
 
 	}
 

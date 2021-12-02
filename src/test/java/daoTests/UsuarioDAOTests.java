@@ -39,11 +39,11 @@ public class UsuarioDAOTests {
 	public void cargarUsuariosTest() {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 
-		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
+		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, 1, 1);
 		ArrayList<Producto> compra = new ArrayList<Producto>();
 		compra.add(atraccion1);
 
-		Usuario usuarioEsperado = new Usuario(1, "Eowyn", "Aventura", 10, 8, 0, 1);
+		Usuario usuarioEsperado = new Usuario(1, "Eowyn", 1, 10, 8, 0, 1);
 		Itinerario itinerarioEsperado = new Itinerario(1, usuarioEsperado.getId(), compra);
 		usuarioEsperado.setItinerario(itinerarioEsperado);
 		HashMap<Integer, Usuario> usuariosEsperados = new HashMap<Integer, Usuario>();
@@ -58,13 +58,13 @@ public class UsuarioDAOTests {
 	public void actualizarUsuarioTest() {
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
-		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
-		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura", 1);
+		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, 1, 1);
+		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, 1, 1);
 		ArrayList<Producto> compras = new ArrayList<Producto>();
 		compras.add(atraccion1);
 		compras.add(atraccion2);
 
-		Usuario usuarioEsperado = new Usuario(1, "Eowyn", "Aventura", 8, 5.5, 0, 1);
+		Usuario usuarioEsperado = new Usuario(1, "Eowyn", 1, 8, 5.5, 0, 1);
 
 		Itinerario itinerario = new Itinerario(1, usuarioEsperado.getId(), compras);
 		usuarioEsperado.setItinerario(itinerario);

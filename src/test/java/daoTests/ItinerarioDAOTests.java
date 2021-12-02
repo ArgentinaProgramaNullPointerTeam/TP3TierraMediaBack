@@ -44,7 +44,7 @@ public class ItinerarioDAOTests {
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
 
-		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
+		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, 1, 1);
 		ArrayList<Producto> sugerenciasEsperadas = new ArrayList<Producto>();
 		sugerenciasEsperadas.add(atraccion1);
 		Itinerario itinerario = new Itinerario(1, 1, sugerenciasEsperadas);
@@ -67,8 +67,8 @@ public class ItinerarioDAOTests {
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 
-		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, "Aventura", 1);
-		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, "Aventura", 1);
+		Atraccion atraccion1 = new Atraccion(1, "Moria", 1, 1, 6, 1, 1);
+		Atraccion atraccion2 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, 1, 1);
 		
 		ArrayList<Producto> sugerenciasEsperadas = new ArrayList<Producto>();
 		sugerenciasEsperadas.add(atraccion1);

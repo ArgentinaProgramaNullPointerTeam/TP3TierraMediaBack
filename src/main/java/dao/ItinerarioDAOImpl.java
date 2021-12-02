@@ -47,7 +47,8 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 	}
 
-	public void insert(Itinerario itinerario) {
+	public int insert(Itinerario itinerario) {
+		int rows = 0;
 		try {
 			List<Producto> listaCompra = new LinkedList<Producto>();
 			String sqlPromo = "INSERT INTO itinerario (id_usuario, id_promocion) VALUES (?, ?)";
@@ -62,20 +63,24 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 				if (producto.esPromocion()) {
 					promoComprada.setInt(1, itinerario.getIdUsuario());
 					promoComprada.setInt(2, producto.getId());
-					promoComprada.executeUpdate();
+					rows = promoComprada.executeUpdate();
 				} else {
 					atracComprada.setInt(1, itinerario.getIdUsuario());
 					atracComprada.setInt(2, producto.getId());
-					atracComprada.executeUpdate();
+					rows = atracComprada.executeUpdate();
 				}
 			}
-
+			return rows;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
 	}
 
 	public int update(Itinerario itinerario) {
+		return 0;
+	}
+	
+	public int delete(Itinerario itinerario) {
 		return 0;
 	}
 
@@ -98,7 +103,4 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 	}
 
-	public int delete(Itinerario t) {
-		return 0;
-	}
 }
