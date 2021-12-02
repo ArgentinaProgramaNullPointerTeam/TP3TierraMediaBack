@@ -15,7 +15,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public HashMap<Integer, Usuario> findAll() {
 		try {
-			String sql = "SELECT u.id_usuario, u.nombre, u.dinero_disponible, u.tiempo_disponible, tipo.id_tipo_atraccion, tipo.nombre AS 'tipo_atraccion', u.is_admin, u.status "
+			String sql = "SELECT u.id_usuario, u.nombre, u.password, u.dinero_disponible, u.tiempo_disponible, tipo.id_tipo_atraccion, tipo.nombre AS 'tipo_atraccion', u.is_admin, u.status "
 					+ "FROM 'usuario' AS u INNER JOIN 'tipo_atraccion' AS tipo "
 					+ "ON u.id_tipo_atraccion = tipo.id_tipo_atraccion WHERE u.status = '1' AND tipo.status = '1'";
 			Connection conn = ConnectionProvider.getConnection();
@@ -62,7 +62,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	
 	public int update(Usuario usuario) {
 		try {
-			String sql = "UPDATE usuario SET nombre = ?, password = ? dinero_disponible = ?, tiempo_disponible = ?, id_tipo_atraccion = ?, is_admin = ? WHERE ID = ? AND status = 1";
+			String sql = "UPDATE usuario SET nombre = ?, password = ?, dinero_disponible = ?, tiempo_disponible = ?, id_tipo_atraccion = ?, is_admin = ? WHERE id_usuario = ? AND status = 1";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 
@@ -116,8 +116,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	private Usuario toUsuario(ResultSet resultados) {
 		try {
-			return new Usuario(resultados.getInt(1), resultados.getString(2), resultados.getInt(5),
-					resultados.getInt(3), resultados.getDouble(4), resultados.getInt(7), resultados.getInt(8));
+			return new Usuario(resultados.getInt(1), resultados.getString(2), resultados.getString(3), resultados.getInt(6),
+					resultados.getInt(4), resultados.getDouble(5), resultados.getInt(8), resultados.getInt(9));
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}

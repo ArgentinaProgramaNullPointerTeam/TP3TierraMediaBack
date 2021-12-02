@@ -27,8 +27,8 @@ public class UsuarioTests {
 
 	@Before
 	public void setup() {
-		usuario = new Usuario(1, "Sam", 1, 50, 3, 0, 1);
-		u1 = new Usuario(2, "pepito", 1, 100, 100, 0, 1);
+		usuario = new Usuario(1, "Sam", "pass", 1, 50, 3, 0, 1);
+		u1 = new Usuario(2, "pepito", "pass", 1, 100, 100, 0, 1);
 
 		a1 = new Atraccion(1, "a1", 10, 3, 20, 1, 1);
 		a2 = new Atraccion(2, "a2", 4, 2.5, 20, 1, 1);

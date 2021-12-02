@@ -78,11 +78,11 @@ public class PromocionDAOImpl implements PromocionDAO {
 		try {
 			String sql = "";
 			if (promocion.getTipoDePromocion().equals("AXB")) {
-				sql = "UPDATE promocion SET nombre = ?, tipo_promocion = ?, descuento_AXB = ?, id_tipo_atraccion = ?, atraccion1 = ?, atraccion2 = ?, atraccion3 = ? WHERE ID = ? AND status = 1";
+				sql = "UPDATE promocion SET nombre = ?, tipo_promocion = ?, descuento_AXB = ?, id_tipo_atraccion = ?, atraccion1 = ?, atraccion2 = ?, atraccion3 = ? WHERE id_promocion = ? AND status = 1";
 			} else if (promocion.getTipoDePromocion().equals("Absoluta")) {
-				sql = "UPDATE promocion SET nombre = ?, tipo_promocion = ?, descuento_absoluta = ?, id_tipo_atraccion = ?, atraccion1 = ?, atraccion2 = ? WHERE ID = ? AND status = 1";
+				sql = "UPDATE promocion SET nombre = ?, tipo_promocion = ?, descuento_absoluta = ?, id_tipo_atraccion = ?, atraccion1 = ?, atraccion2 = ? WHERE id_promocion = ? AND status = 1";
 			} else if (promocion.getTipoDePromocion().equals("Porcentual")) {
-				sql = "UPDATE promocion SET nombre = ?, tipo_promocion = ?, descuento_porcentual = ?, id_tipo_atraccion = ?, atraccion1 = ?, atraccion2 = ? WHERE ID = ? AND status = 1";
+				sql = "UPDATE promocion SET nombre = ?, tipo_promocion = ?, descuento_porcentual = ?, id_tipo_atraccion = ?, atraccion1 = ?, atraccion2 = ? WHERE id_promocion = ? AND status = 1";
 			}
 			
 			Connection conn = ConnectionProvider.getConnection();

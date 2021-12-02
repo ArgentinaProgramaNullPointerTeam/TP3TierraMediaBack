@@ -19,9 +19,10 @@ public class Usuario {
 	private boolean isAdmin;
 	private boolean status = true;
 
-	public Usuario(int id, String nombre, int atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin, int status) {
+	public Usuario(int id, String nombre, String password, int atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin, int status) {
 		this.id = id;
 		this.nombre = nombre;
+		this.password = password;
 		this.atraccionPreferida = atraccionPreferida;
 		this.dineroDisponible = dineroDisponible;
 		this.tiempoDisponible = tiempoDisponible;

@@ -21,7 +21,7 @@ public class ItinerarioTests {
 
 	@Before
 	public void setup() {
-		usuario = new Usuario(1, "Sam", 1, 50, 3, 0, 1);
+		usuario = new Usuario(1, "Sam", "pass", 1, 50, 3, 0, 1);
 		sugerencia1 = new Atraccion(1, "Edoras", 5, 0.5, 2, 1, 1);
 		sugerencia2 = new Atraccion(1, "Isengard", 5, 1, 2, 1, 1);
 		sugerencia3 = new Atraccion(3, "Rivendel", 10, 1, 2, 1, 1);

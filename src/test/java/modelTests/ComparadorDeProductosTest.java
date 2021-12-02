@@ -28,7 +28,7 @@ public class ComparadorDeProductosTest {
 
 	@Before
 	public void setup() {
-		u1 = new Usuario(1, "pepito", 1, 100, 100, 0, 1);
+		u1 = new Usuario(1, "pepito", "pass", 1, 100, 100, 0, 1);
 		a1 = new Atraccion(1, "a1", 10, 3, 20, 1, 1);
 		a2 = new Atraccion(2, "a2", 4, 2.5, 20, 1, 1);
 		a3 = new Atraccion(3, "a3", 10, 5, 20, 1, 1);
