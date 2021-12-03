@@ -13,6 +13,13 @@ public class PromocionAXB extends Promocion {
 		this.idAtraccionGratuita = descuento;
 		this.ListaAtracciones = atracciones;
 	}
+	
+	public PromocionAXB(String nombre, int tipoAtraccion, int cantAtracciones, List<Atraccion> atracciones, String tipoPromocion,
+			int descuento) {
+		super(nombre, tipoAtraccion,cantAtracciones, atracciones, tipoPromocion);
+		this.idAtraccionGratuita = descuento;
+		this.ListaAtracciones = atracciones;
+	}
 
 	@Override
 	public int getCostoDeVisita() {

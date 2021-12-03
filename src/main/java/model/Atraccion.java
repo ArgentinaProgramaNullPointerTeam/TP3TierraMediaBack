@@ -1,12 +1,7 @@
 package model;
 
-/**
- * Clase que modela la atraccion. Tiene un constructor con los @param nombre,
- * costoDeVisita, tiempoDeVisita, cupo y tipoAtraccion Tiene los getter para
- * nombre, costoDeVisita, tiempoDeVisita y tipoAtraccion. Tiene un metodo
- * hayCupo que indica si la Atraccion tiene cupo o no y un metodo restarCupo que
- * resta 1 cupo cuando se acepta una compra y hay cupo .
- */
+import java.util.HashMap;
+import java.util.Map;
 
 public class Atraccion extends Producto {
 	private int id;
@@ -16,6 +11,7 @@ public class Atraccion extends Producto {
 	private int cupo;
 	private int tipoAtraccion;
 	private boolean status;
+	private Map<String, String> errores;
 
 	public Atraccion(int id, String nombre, int costoDeVisita, double tiempoDeVisita, int cupo, int tipoAtraccion, int status) {
 		this.id = id;
@@ -25,6 +21,14 @@ public class Atraccion extends Producto {
 		this.cupo = cupo;
 		this.tipoAtraccion = tipoAtraccion;
 		this.status = this.toBoolean(status);
+	}
+	
+	public Atraccion(String nombre, int costoDeVisita, double tiempoDeVisita, int cupo, int tipoAtraccion) {
+		this.nombre = nombre;
+		this.costoDeVisita = costoDeVisita;
+		this.tiempoDeVisita = tiempoDeVisita;
+		this.cupo = cupo;
+		this.tipoAtraccion = tipoAtraccion;
 	}
 
 	@Override
@@ -72,7 +76,6 @@ public class Atraccion extends Producto {
 		if (this.cupo > 0) {
 			this.cupo -= 1;
 		}
-
 	}
 
 	@Override
@@ -101,6 +104,42 @@ public class Atraccion extends Producto {
 		return this.equals(otro);
 	}
 
+	public boolean isValid() {
+		validate();
+		return errores.isEmpty();
+	}
+	
+	public void validate() {
+		errores = new HashMap<String, String>();
+		boolean isNumeric =  this.nombre.matches("[+-]?\\d*(\\.\\d+)?");
+		if (isNumeric) {
+			errores.put("nombre", "No debe contener numeros");
+		}
+		if (this.nombre.contains(" ")) {
+			errores.put("nombre", "No debe ingresar espacios");
+		}
+		if (this.nombre.equals("")) {
+			errores.put("nombre", "Debe ingresar un nombre");
+		}
+		if (this.costoDeVisita <= 0) {
+			errores.put("costoDeVisita", "El costo debe ser positivo");
+		}
+		if (this.tiempoDeVisita <= 0) {
+			errores.put("tiempoDeVisita", "Debe ser positivo");
+		}
+		if (this.cupo <= 0) {
+			errores.put("cupo", "Debe ser positivo");
+		}
+	}
+	
+	public Map<String, String> getErrors() {
+		return errores;
+	}
+	
+	private boolean toBoolean(int noBoolean) {
+		return noBoolean == 1;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -116,7 +155,7 @@ public class Atraccion extends Producto {
 		result = prime * result + tipoAtraccion;
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -145,9 +184,4 @@ public class Atraccion extends Producto {
 			return false;
 		return true;
 	}
-
-	private boolean toBoolean(int noBoolean) {
-		return noBoolean == 1;
-	}
-
 }

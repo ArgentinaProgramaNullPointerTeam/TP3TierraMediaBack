@@ -1,13 +1,8 @@
 package model;
 
-/**
- * Clase que modela al usuario. Tiene un constructor con los parametros nombre,
- * atraccionPreferida, dineroDisponible, tiempoDisponible. Tiene los getter para
- * atraccionPreferida. Tiene un metodo comprar que recibe un producto y lo
- * guarda en el itinerario. Tiene un metodo restarTiempo y restarDinero que
- * resta el tiempo y el dinero respectivamente. Tiene un metodo puedeComprar que
- * retorna un boolean si tiene tiempo y dinero disponible.
- */
+import java.util.HashMap;
+import java.util.Map;
+
 public class Usuario {
 	private int id;
 	private String nombre;
@@ -18,6 +13,7 @@ public class Usuario {
 	private Itinerario itinerario;
 	private boolean isAdmin;
 	private boolean status = true;
+	private Map<String, String> errores;
 
 	public Usuario(int id, String nombre, String password, int atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin, int status) {
 		this.id = id;
@@ -30,7 +26,15 @@ public class Usuario {
 		this.isAdmin = this.toBoolean(isAdmin);
 		this.status = this.toBoolean(status);
 	}
-	
+	public Usuario(String nombre, String password, int atraccionPreferida, int dineroDisponible, double tiempoDisponible, int isAdmin) {
+		this.nombre = nombre;
+		this.password = password;
+		this.atraccionPreferida = atraccionPreferida;
+		this.dineroDisponible = dineroDisponible;
+		this.tiempoDisponible = tiempoDisponible;
+		this.itinerario = new Itinerario(id);
+		this.isAdmin = this.toBoolean(isAdmin);
+	}
 	public String getPassword() {
 		return this.password;
 	}
@@ -59,7 +63,10 @@ public class Usuario {
 		return this.itinerario;
 	}
 	
-
+	public void setItinerario(Itinerario itinerario) {
+		this.itinerario = itinerario;
+	}
+	
 	public boolean isStatus() {
 		return status;
 	}
@@ -71,7 +78,9 @@ public class Usuario {
 	public boolean isAdmin() {
 		return isAdmin;
 	}
-
+	public boolean checkPass(String password) {
+		return password.equals(this.password);
+	}
 	public void comprar(Producto producto) {
 		this.restarDinero(producto.getCostoDeVisita());
 		this.restarTiempo(producto.getTiempoDeVisita());
@@ -99,8 +108,40 @@ public class Usuario {
 				+ dineroDisponible + ", Tiempo disponible= " + tiempoDisponible;
 	}
 
-	public void setItinerario(Itinerario itinerario) {
-		this.itinerario = itinerario;
+	private boolean toBoolean(int noBoolean) {
+		return noBoolean == 1;
+	}
+	
+	public boolean isValid() {
+		validate();
+		return errores.isEmpty();
+	}
+	
+	public void validate() {
+		errores = new HashMap<String, String>();
+		boolean esNumero =  this.nombre.matches("[+-]?\\d*(\\.\\d+)?");
+		if (esNumero) {
+			errores.put("nombre", "No debe contener numeros");
+		}
+		if (this.nombre.contains(" ")) {
+			errores.put("nombre", "No debe ingresar espacios");
+		}
+		if (this.nombre.equals("")) {
+			errores.put("nombre", "Debe ingresar un nombre");
+		}
+		if (this.dineroDisponible <= 0) {
+			errores.put("dineroDisponible", "Debe ser positivo");
+		}
+		if (this.tiempoDisponible <= 0) {
+			errores.put("tiempoDisponible", "Debe ser positivo");
+		}
+		if (this.password.equals("")) {
+			errores.put("password", "Debe ingresar un password");
+		}
+	}
+	
+	public Map<String, String> getErrores() {
+		return errores;
 	}
 
 	@Override
@@ -158,9 +199,5 @@ public class Usuario {
 		if (Double.doubleToLongBits(tiempoDisponible) != Double.doubleToLongBits(other.tiempoDisponible))
 			return false;
 		return true;
-	}
-
-	private boolean toBoolean(int noBoolean) {
-		return noBoolean == 1;
 	}
 }

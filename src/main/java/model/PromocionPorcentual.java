@@ -14,7 +14,14 @@ public class PromocionPorcentual extends Promocion {
 		this.ListaAtracciones = atracciones;
 		this.descuento = descuento;
 	}
-
+	
+	public PromocionPorcentual(String nombre, int tipoAtraccion, int cantAtracciones, List<Atraccion> atracciones,
+			String tipoPromocion, Double descuento) {
+		super(nombre, tipoAtraccion,cantAtracciones, atracciones, tipoPromocion);
+		this.ListaAtracciones = atracciones;
+		this.descuento = descuento;
+	}
+	
 	@Override
 	public int getCostoDeVisita() {
 		costoDeVisita = 0;
