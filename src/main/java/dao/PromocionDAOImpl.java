@@ -45,8 +45,9 @@ public class PromocionDAOImpl implements PromocionDAO {
 					+ "WHERE p.status = '1' AND tipo.status = '1' AND p.id_promocion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			
 			ResultSet resultados = statement.executeQuery();
-
 			Promocion promocion = null;
 			while (resultados.next()) {
 				promocion = toPromocion(resultados, atracciones);

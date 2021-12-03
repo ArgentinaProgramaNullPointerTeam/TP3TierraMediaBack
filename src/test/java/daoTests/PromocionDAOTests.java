@@ -116,5 +116,22 @@ public class PromocionDAOTests {
 		HashMap<Integer, Promocion> promocionesObtenidas = promocionDAO.findAll(atraccionesObtenidas);
 		assertEquals(promocionesEsperadas, promocionesObtenidas);
 	}
+	
+	@Test
+	public void findTest() {
+		Atraccion atraccion1 = new Atraccion(2, "Minas Tirith", 2, 2.5, 25, 1, 1);
+		Atraccion atraccion2 = new Atraccion(3, "La Comarca", 3, 1, 150, 1, 1);
+		ArrayList<Atraccion> atraccionesEsperadas = new ArrayList<Atraccion>();
+		atraccionesEsperadas.add(atraccion1);
+		atraccionesEsperadas.add(atraccion2);
+		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
+		Promocion promoEsperada = new PromocionPorcentual(1, "Pack Aventura", 1, 2, atraccionesEsperadas, "Porcentual",
+				0.4, 1);
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+		HashMap<Integer, Atraccion> atraccionesObtenidas = atraccionDAO.findAll();
+		Promocion promoObtenida = promocionDAO.find(1, atraccionesObtenidas);
+
+		assertEquals(promoEsperada, promoObtenida);
+	}
 
 }

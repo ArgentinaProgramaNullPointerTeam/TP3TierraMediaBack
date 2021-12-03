@@ -78,9 +78,15 @@ public class Usuario {
 	public boolean isAdmin() {
 		return isAdmin;
 	}
+	
 	public boolean checkPass(String password) {
 		return password.equals(this.password);
 	}
+	
+	public boolean isNull() {
+		return false;
+	}
+	
 	public void comprar(Producto producto) {
 		this.restarDinero(producto.getCostoDeVisita());
 		this.restarTiempo(producto.getTiempoDeVisita());

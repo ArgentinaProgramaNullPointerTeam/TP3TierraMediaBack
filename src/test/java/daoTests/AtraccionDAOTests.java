@@ -112,4 +112,13 @@ public class AtraccionDAOTests {
 
 		assertEquals(atraccionesEsperadas, atraccionesObtenidas);
 	}
+	
+	@Test
+	public void findTest() {
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+		Atraccion atraccionEsperada = new Atraccion(1, "Moria", 1, 1, 6, 1, 1);
+		Atraccion atraccionObtenida = atraccionDAO.find(1);
+
+		assertEquals(atraccionEsperada, atraccionObtenida);
+	}
 }
