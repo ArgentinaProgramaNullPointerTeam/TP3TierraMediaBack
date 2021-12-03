@@ -10,6 +10,7 @@ import jdbc.ConnectionProvider;
 import model.Administrador;
 import model.Itinerario;
 import model.Usuario;
+import nullObject.NullUser;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
@@ -42,7 +43,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
-
+	
 	public int changeFields(Usuario usuario) {
 		try {
 			String sql = "UPDATE usuario SET dinero_disponible = ?, tiempo_disponible = ? WHERE id_usuario = ? AND status = '1'";
@@ -114,6 +115,50 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
+	public Usuario findByUsername(String nombre) {
+		try {
+			String sql = "SELECT u.id_usuario, u.nombre, u.password, u.dinero_disponible, u.tiempo_disponible, tipo.id_tipo_atraccion, tipo.nombre AS 'tipo_atraccion', u.is_admin, u.status"
+					+ "FROM 'usuario' AS u INNER JOIN 'tipo_atraccion' AS tipo"
+					+ "ON u.id_tipo_atraccion = tipo.id_tipo_atraccion WHERE u.status = '1' AND tipo.status = '1' AND u.nombre = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, nombre);
+			ResultSet resultados = statement.executeQuery();
+
+			Usuario user = NullUser.build();
+
+			if (resultados.next()) {
+				user = toUsuario(resultados);
+			}
+
+			return user;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	public Usuario find(Integer id) {
+		try {
+			String sql = "SELECT u.id_usuario, u.nombre, u.password, u.dinero_disponible, u.tiempo_disponible, tipo.id_tipo_atraccion, tipo.nombre AS 'tipo_atraccion', u.is_admin, u.status"
+					+ "FROM 'usuario' AS u INNER JOIN 'tipo_atraccion' AS tipo"
+					+ "ON u.id_tipo_atraccion = tipo.id_tipo_atraccion WHERE u.status = '1' AND tipo.status = '1' AND u.id_usuario = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			
+			ResultSet resultados = statement.executeQuery();
+
+			Usuario usuario = NullUser.build();
+			if (resultados.next()) {
+				usuario = toUsuario(resultados);
+			}
+
+			return usuario;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
 	private Usuario toUsuario(ResultSet resultados) {
 		try {
 			return new Usuario(resultados.getInt(1), resultados.getString(2), resultados.getString(3), resultados.getInt(6),

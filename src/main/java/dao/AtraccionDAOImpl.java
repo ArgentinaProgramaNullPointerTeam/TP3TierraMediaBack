@@ -8,7 +8,6 @@ import jdbc.ConnectionProvider;
 import model.Atraccion;
 
 public class AtraccionDAOImpl implements AtraccionDAO {
-
 	public HashMap<Integer, Atraccion> findAll() {
 		try {
 			String sql = "SELECT a.id_atraccion, a.nombre, a.costo_visita, a.cupo, a.tiempo_visita, tipo.id_tipo_atraccion, tipo.nombre as 'tipo_atraccion' , a.status "
@@ -98,6 +97,29 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
+	public Atraccion find(Integer id) {
+		try {
+			String sql = "SELECT a.id_atraccion, a.nombre, a.costo_visita, a.cupo, a.tiempo_visita, tipo.id_tipo_atraccion, tipo.nombre as 'tipo_atraccion' , a.status "
+					+ "FROM atraccion a INNER JOIN tipo_atraccion tipo "
+					+ "ON a.id_tipo_atraccion = tipo.id_tipo_atraccion "
+					+ "WHERE a.status = '1' AND tipo.status = '1' AND a.id_atraccion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			
+			ResultSet resultados = statement.executeQuery();
+
+			Atraccion atraccion = null;
+			if (resultados.next()) {
+				atraccion = toAtraccion(resultados);
+			}
+
+			return atraccion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
 	private Atraccion toAtraccion(ResultSet resultados) {
 		try {
 			return new Atraccion(resultados.getInt(1), resultados.getString(2), resultados.getInt(3),

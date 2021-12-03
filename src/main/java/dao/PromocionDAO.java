@@ -6,6 +6,7 @@ import model.Promocion;
 
 public interface PromocionDAO extends GenericDAO<Promocion> {
 
-	public HashMap<Integer, Promocion> findAll(HashMap<Integer, Atraccion> atracciones);
+	public abstract HashMap<Integer, Promocion> findAll(HashMap<Integer, Atraccion> atracciones);
+	public abstract Promocion find(Integer id, HashMap<Integer, Atraccion> atracciones);
 
 }

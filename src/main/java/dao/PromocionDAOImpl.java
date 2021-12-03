@@ -37,6 +37,26 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 	}
 	
+	public Promocion find(Integer id, HashMap<Integer, Atraccion> atracciones) {
+		try {
+			String sql = "SELECT p.id_promocion, p.nombre, p.tipo_promocion, p.descuento_AXB, p.descuento_porcentual, p.descuento_absoluta, tipo.id_tipo_atraccion, tipo.nombre AS 'tipo_atraccion', p.atraccion1, p.atraccion2, p.atraccion3, p.status "
+					+ "FROM promocion p INNER JOIN tipo_atraccion tipo "
+					+ "ON p.id_tipo_atraccion = tipo.id_tipo_atraccion "
+					+ "WHERE p.status = '1' AND tipo.status = '1' AND p.id_promocion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
+
+			Promocion promocion = null;
+			while (resultados.next()) {
+				promocion = toPromocion(resultados, atracciones);
+			}
+			return promocion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
 	public int insert(Promocion promocion) {
 		try {
 			String sql = "";
